@@ -1,6 +1,6 @@
 version: '3.8'
 
-#services:
+services:
 #  rhasspy:
 #    image: rhasspy/rhasspy
 #    container_name: rhasspy
