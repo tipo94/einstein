@@ -24,6 +24,12 @@ class AudioRecorder:
         """
         p = pyaudio.PyAudio()
 
+        # Print device info
+        for i in range(p.get_device_count()):
+            info = p.get_device_info_by_index(i)
+            print(f"Device {i}: {info['name']} "
+                  f"Max input channels = {info['maxInputChannels']}")
+
         stream = p.open(
             format=self.sample_format,
             channels=self.channels,
