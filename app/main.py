@@ -5,7 +5,9 @@ from services.external_oai import send_audio_for_processing
 app = FastAPI()
 
 # Instantiate our AudioRecorder with default settings
-audio_recorder = AudioRecorder()
+audio_recorder = AudioRecorder(
+    chunk_size=512
+)
 
 @app.get("/start_recording")
 def start_recording(background_tasks: BackgroundTasks):
