@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  rhasspy:
+    image: rhasspy/rhasspy
+    container_name: rhasspy
+    restart: unless-stopped
+    ports:
+      - "12101:12101"
+    volumes:
+      - ${HOME}/.config/rhasspy/profiles:/profiles
+      - /etc/localtime:/etc/localtime:ro
+    devices:
+      - /dev/snd:/dev/snd
+    command: >
+      --user-profiles /profiles
+      --profile fr
+
+  fastapi:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: fastapi_service
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+    devices:
+      - /dev/snd:/dev/snd
+    environment:
+      - MODULE_NAME=main
+      - VARIABLE_NAME=app
